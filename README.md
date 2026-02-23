@@ -2,30 +2,30 @@
 
 # Equity and Efficiency in Service Delivery: Evidence from 311 Requests in Chicago
 
-This project analyzes the provision of services in Chicago using individual-level 311 Service Requests data. 
+This project analyzes the provision of services in Chicago using individual-level 311 Service Requests data.
 
-The policy topic centers on equity and efficiency in local service delivery, examining whether neighborhoods with different characteristics exhibit systematic variation in the composition of service requests and in request outcomes. By linking service requests to neighborhood characteristics, the project explores whether disparities in municipal service provision and responsiveness are associated with socioeconomic and demographic differences across Chicago neighborhoods..
+The policy topic centers on equity and efficiency in local service delivery, examining whether neighborhoods with different characteristics exhibit systematic variation in the composition of service requests and in request outcomes. By linking service requests to neighborhood characteristics, the project explores whether disparities in municipal service provision and responsiveness are associated with socioeconomic and demographic differences across Chicago neighborhoods.
 
 ## Setup
 
 ```bash
 conda env create -f environment.yml
-conda activate fire_analysis
 ```
 
 ## Project Structure
 
 ```
 data/
-  raw-data/           # Raw data files
-    fire.csv          # Historical fire perimeter data
-    canadian_cpi.csv  # Canadian Consumer Price Index data
-  derived-data/       # Filtered data and output plots
-    fire_filtered.gpkg  # Fire data filtered to post-2015
-    cpi_filtered.csv    # CPI data filtered to 2020 onwards
+  raw-data/                       # Raw data files
+    community_area.csv            # Chicago community area boundaries and metadata used for spatial joins and geographic aggregation
+    311_request.csv               # Raw 311 service request records used for complaint analysis and filtering (available here: https://drive.google.com/drive/folders/1xwaIqXUsbTgMgTnBrFVNo45hhgikIauK)
+  derived-data/                   # Filtered data and output plots
+    community_area_filtered.gpkg  # Spatial dataset filtered to study period and prepared for mapping (GeoPackage format)
+    311_filtered.csv              # Cleaned and filtered 311 data used for visualization and analysis
 code/
-  preprocessing.py    # Filters fire and CPI data
-  plot_fires.py       # Plots fire perimeters
+  preprocessing.py                # Filters community area and 31 requests data
+  plot_311.py                     # Plots 311 requests
+  plot_acs.py                     # Plots community area perimeters
 ```
 
 ## Usage
@@ -35,7 +35,11 @@ code/
    python code/preprocessing.py
    ```
 
-2. Generate the fire perimeter plot:
+2. Generate the acs perimeter plot:
    ```bash
-   python code/plot_fires.py
+   python code/plot_acs.py  
    ```
+
+## Requirements
+gdown
+
