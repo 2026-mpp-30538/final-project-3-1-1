@@ -1,7 +1,10 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/YlfKWlZ5)
-# Fire Perimeter Analysis
 
-This project processes and visualizes historical fire perimeter data and Canadian CPI data.
+# Equity and Efficiency in Service Delivery: Evidence from 311 Requests in Chicago
+
+This project analyzes the provision of services in Chicago using individual-level 311 Service Requests data. 
+
+The policy topic centers on equity and efficiency in local service delivery, examining whether neighborhoods with different characteristics exhibit systematic variation in the composition of service requests and in request outcomes. By linking service requests to neighborhood characteristics, the project explores whether disparities in municipal service provision and responsiveness are associated with socioeconomic and demographic differences across Chicago neighborhoods..
 
 ## Setup
 
