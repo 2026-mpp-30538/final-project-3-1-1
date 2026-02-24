@@ -4,8 +4,7 @@ from pathlib import Path
 import gdown
 import pandas as pd
 
-script_dir = Path(__file__).resolve().parent
-project_dir = script_dir.parent
+script_dir = Path(__file__).parent
 
 
 def normalize_name(value: str) -> str:
@@ -16,7 +15,7 @@ def normalize_name(value: str) -> str:
 
 
 #Community area dataset 
-community_area_path = project_dir / "data/raw-data/community_areas.csv"
+community_area_path = script_dir / "../data/raw-data/community_areas.csv"
 if not community_area_path.exists():
     raise FileNotFoundError("Error")
 
@@ -24,7 +23,7 @@ df_ca = pd.read_csv(community_area_path)
 print(f"Community source: {community_area_path}")
 
 # 311 dataset 
-requests_path = project_dir / "data/raw-data/311_request.csv"
+requests_path = script_dir / "../data/raw-data/311_request.csv"
 if not requests_path.exists():
     file_id = "1rYJpNKT4kix_NAPhL--LJIDq9Ctp1vhs"
     url = f"https://drive.google.com/uc?id={file_id}"
@@ -184,7 +183,7 @@ if "total_population" in merged.columns:
 
 # Output
 
-derived_dir = project_dir / "data/derived-data"
+derived_dir = script_dir / "../data/derived-data"
 derived_dir.mkdir(parents=True, exist_ok=True)
 
 output_path = derived_dir / "df_311_ca.csv"
