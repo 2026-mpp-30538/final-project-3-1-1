@@ -5,7 +5,7 @@ import gdown
 #Community area data 
 
 script_dir = Path(__file__).parent
-community_area_path = script_dir / "../data/raw-data/community_areas.csv"
+community_area_path = script_dir / "../data/raw-data/community_area.csv"
 df_ca = pd.read_csv(community_area_path)
 print(df_ca.head())
 
@@ -21,7 +21,7 @@ print(df_311.head())
 
 #Clean the database
 
-# --- CLEANING ---
+
 df_ca.columns = df_ca.columns.str.strip().str.lower().str.replace(" ", "_", regex=False)
 df_311.columns = df_311.columns.str.strip().str.lower().str.replace(" ", "_", regex=False)
 
