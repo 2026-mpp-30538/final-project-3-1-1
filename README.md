@@ -24,8 +24,7 @@ data/
     311_filtered.csv              # Cleaned and filtered 311 data used for visualization and analysis
 code/
   preprocessing.py                # Filters community area and 31 requests data
-  plot_311.py                     # Plots 311 requests
-  plot_acs.py                     # Plots community area perimeters
+  static_plots.py                 # Plots 311 requests + community area perimeters
 ```
 
 ## Usage
