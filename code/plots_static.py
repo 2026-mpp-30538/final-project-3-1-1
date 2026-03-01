@@ -20,6 +20,21 @@ QUARTILE_LABELS = [
     "Middle-High Income",
     "High Income",
 ]
+CHICAGO_BAR_COLORS = [
+    "#41B6E6",
+    "#C8102E",
+    "#0B1F41",
+    "#9BD3F5",
+    "#7A0019",
+    "#6FA8DC",
+]
+CHICAGO_HEAT_COLORS = [
+    "#F7FBFF",
+    "#D7EEF9",
+    "#9BD3F5",
+    "#41B6E6",
+    "#C8102E",
+]
 
 
 def ensure_input(path: Path) -> None:
@@ -106,7 +121,11 @@ def build_grouped_bar(summary: pd.DataFrame) -> alt.Chart:
             x=alt.X("income_group:N", sort=QUARTILE_LABELS, title="Income Group"),
             xOffset=alt.XOffset("service_request_type:N"),
             y=alt.Y("requests_per_1000:Q", title="Requests per 1,000 residents"),
-            color=alt.Color("service_request_type:N", title="Service Type"),
+            color=alt.Color(
+                "service_request_type:N",
+                title="Service Type",
+                scale=alt.Scale(range=CHICAGO_BAR_COLORS),
+            ),
             tooltip=[
                 alt.Tooltip("income_group:N", title="Income Group"),
                 alt.Tooltip("service_request_type:N", title="Service Type"),
@@ -144,7 +163,7 @@ def build_heatmap(summary: pd.DataFrame) -> alt.Chart:
             color=alt.Color(
                 "requests_per_1000:Q",
                 title="Requests per 1,000 residents",
-                scale=alt.Scale(scheme="goldred"),
+                scale=alt.Scale(range=CHICAGO_HEAT_COLORS),
             ),
             tooltip=[
                 alt.Tooltip("income_group:N", title="Income Group"),
@@ -174,10 +193,10 @@ def main() -> None:
     bar_chart = build_grouped_bar(summary)
     heatmap = build_heatmap(summary)
 
-    bar_path = PLOTS_DIR / "plot_6_bar_service_by_quartile_altair.html"
-    heatmap_path = PLOTS_DIR / "plot_7_heatmap_service_by_quartile_altair.html"
-    bar_png_path = PLOTS_DIR / "plot_6_bar_service_by_quartile_altair.png"
-    heatmap_png_path = PLOTS_DIR / "plot_7_heatmap_service_by_quartile_altair.png"
+    bar_path = PLOTS_DIR / "bar_income_services.html"
+    heatmap_path = PLOTS_DIR / "heatmap_income_services.html"
+    bar_png_path = PLOTS_DIR / "bar_income_services.png"
+    heatmap_png_path = PLOTS_DIR / "heatmap_income_services.png"
 
     bar_chart.save(bar_path)
     heatmap.save(heatmap_path)
