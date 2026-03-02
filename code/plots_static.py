@@ -90,10 +90,10 @@ def load_type_data() -> pd.DataFrame:
 
 
 def load_area_data() -> pd.DataFrame:
-    ensure_input(AREA_PATH)
-    df = pd.read_csv(AREA_PATH)
+    ensure_input(TYPE_PATH)
+    df = pd.read_csv(TYPE_PATH)
 
-    for col in ["community_area", "income_estimate", "total_population", "requests_per_1000"]:
+    for col in ["community_area", "income_estimate", "total_population", "total_requests"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
 
@@ -101,18 +101,32 @@ def load_area_data() -> pd.DataFrame:
         subset=[
             "community_area",
             "community_area_name",
+            "service_request_type",
             "income_estimate",
             "total_population",
-            "requests_per_1000",
+            "total_requests",
         ]
     ).copy()
     df = df[df["total_population"] > 0]
     df = df[~df["community_area_name"].isin(EXCLUDED_AREAS)]
-    df = add_income_groups(df)
-    df["income_group"] = pd.Categorical(
-        df["income_group"], categories=QUARTILE_LABELS, ordered=True
+    df = df[~df["service_request_type"].isin(EXCLUDED_SERVICE_TYPES)]
+
+    area_df = (
+        df.groupby(
+            ["community_area", "community_area_name", "income_estimate", "total_population"],
+            as_index=False,
+        )
+        .agg(total_requests=("total_requests", "sum"))
     )
-    return df
+    area_df["requests_per_1000"] = (
+        area_df["total_requests"] / area_df["total_population"]
+    ) * 1000
+
+    area_df = add_income_groups(area_df)
+    area_df["income_group"] = pd.Categorical(
+        area_df["income_group"], categories=QUARTILE_LABELS, ordered=True
+    )
+    return area_df
 
 
 
